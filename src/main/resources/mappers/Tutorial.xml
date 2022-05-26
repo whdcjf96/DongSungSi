@@ -52,6 +52,7 @@
               , DESCRIPTION = #{description}
               , PUBLISHED = DECODE(#{published},'true','Y','N')
               , UPDATE_TIME = TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+            WHERE ID=#{id}
         </update>
 
         <update id="deleteTutorial" parameterType="Long">
