@@ -23,6 +23,9 @@ import java.util.logging.Logger;
  * -----------------------------------------------------------
  * 2022-05-25         jc          최초 생성
  */
+// cros 문제 ? 브라우저 보안상에 문제로 ip같은데 포트가 다를 경우 디폴트 통신 거절
+//    허락을 구해야함 : @CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:8081") // 프론트엔드 포트번호
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
