@@ -1,6 +1,7 @@
 package com.example.dongsungsi.controller;
 
 import com.example.dongsungsi.model.Customer;
+import com.example.dongsungsi.paging.Criteria;
 import com.example.dongsungsi.service.CustomerServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * packageName : com.example.customerspring.controller
@@ -37,17 +40,33 @@ public class CustomerController {
 
     // 모든 회원 조회 메뉴
     @GetMapping("/customers")
-    public ResponseEntity<Object> getAllCustomers() {
+    public ResponseEntity<Map<String,Object>> getAllCustomersPage(Criteria criteria) {
+
+        logger.info("criteria(vue에서 전송됨) {}",criteria);
+
         // 모든 회원 조회 서비스 호출
-        List<Customer> customers = customerService.findAll();
+        List<Customer> customers = customerService.findByEmailContaining(criteria);
+        logger.info("customers {}", customers);
 
         try {
-            // Vue 성공메세지 + 객체를 전송
-            return new ResponseEntity<Object>(customers, HttpStatus.OK);
+            if(customers.isEmpty()){
+//                Vue로 내용물 없다고 전송(HttpStatus.NO_CONTENT)
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            logger.info("실행 후 : criteria {}", criteria);
+
+//            Todo: Map에 넣어 객체와 페이지정보를 Vue로 보냄
+            Map<String, Object> response = new HashMap<>();
+            response.put("customers",customers);
+            response.put("currentPage",criteria.getPage());
+            response.put("totalItems",criteria.getTotalItems());
+            response.put("totalPages",criteria.getTotalPages());
+            // Vue 성공메세지 + 객체를 전송 + 페이지정보 전송
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             // Vue 에 에러메세지 전송
-            return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

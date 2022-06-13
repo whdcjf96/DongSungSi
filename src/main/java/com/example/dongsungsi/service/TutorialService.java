@@ -1,6 +1,7 @@
 package com.example.dongsungsi.service;
 
 import com.example.dongsungsi.model.Tutorial;
+import com.example.dongsungsi.paging.Criteria;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +18,10 @@ import java.util.Optional;
  * 2022-05-25         jc          최초 생성
  */
 public interface TutorialService {
-    Optional<Tutorial> findbyId(Long id);
+    Optional<Tutorial> findById(Long id);
     List<Tutorial> findByPublished(String published);
-    List<Tutorial> findByTitleContaining(String title);
-    List<Tutorial> findAll();
+    List<Tutorial> findByTitleContaining(Criteria criteria);
+    List<Tutorial> findAll(Criteria criteria);
 
 //    insert / update 같이 구성 메소드
     public boolean save(Tutorial tutorial);
