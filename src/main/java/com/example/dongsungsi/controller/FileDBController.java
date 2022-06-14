@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 // 웹 브라우저 보안관련 : 프론트 8080포트로 오는 요청을 허용
 // 참고사항 : ex)  기본 요청 : http://locahost:9000/board/list
 //                  http://localhost:9000/api/list
-@CrossOrigin("http://localhost:8081")
+//@CrossOrigin("http://localhost:8081")
 @Controller
 @RequestMapping("/api")
 public class FileDBController {

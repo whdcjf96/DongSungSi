@@ -13,7 +13,7 @@
         WHERE DELETE_YN = 'N'
         AND ROWNUM &lt;= (#{page}+1)*#{size}
         )
-        WHERE R > {page}*#{size}
+        WHERE R > #{page}*#{size}
     </select>
     <select id="findByEmailContaining" resultType="com.example.dongsungsi.model.Customer" parameterType="com.example.dongsungsi.paging.Criteria">
         SELECT *
@@ -25,7 +25,7 @@
         AND EMAIL LIKE '%' || #{email} || '%'
         AND ROWNUM &lt;= (#{page}+1)*#{size}
         )
-        WHERE R > {page}*#{size}
+        WHERE R > #{page}*#{size}
     </select>
     <select id="selectTotalCount" resultType="int" parameterType="String">
         SELECT

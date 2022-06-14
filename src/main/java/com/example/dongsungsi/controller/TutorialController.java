@@ -28,7 +28,7 @@ import java.util.Optional;
  */
 // cors 문제 ? 브라우저 보안상에 문제로 ip 같은데 포트가 다를 경우 통신 거절
 // 허락을 구해야 함 : @CrossOrigin(origins = "http://localhost:8080")
-@CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "http://localhost:8081")
 // @RestController : REST API 호출을 위한 어노테이션, JSON 형태로 들어옴
 @RestController
 // http://localhost:8000/api
